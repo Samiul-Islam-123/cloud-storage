@@ -9,10 +9,11 @@ const { Text } = Typography;
 const MyFiles = () => {
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(true);  // Add loading state
+  const [loading, setLoading] = useState(false);  // Add loading state
   const token = Cookies.get('token');
 
   const fetchMyFiles = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/app/all-files`, {
         headers: {
@@ -59,7 +60,7 @@ const MyFiles = () => {
       </Typography.Title>
 
       {/* Show a loader while the files are being fetched */}
-      {loading ? (
+      {loading ===true ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
           <Spin size="large" />
         </div>
